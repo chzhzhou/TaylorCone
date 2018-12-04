@@ -1,0 +1,12 @@
+\begin{thebibliography}{1}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\def\au#1{#1} \def\ed#1{#1} \def\yr#1{#1}\def\at#1{#1}\def\jt#1{\textit{#1}}
+  \def\bt#1{#1}\def\bvol#1{\textbf{#1}} \def\vol#1{#1} \def\pg#1{#1}
+  \def\publ#1{#1}\def\arxiv#1{#1}\def\org#1{#1}\def\st#1{\textit{#1}}
+
+\bibitem[Taylor(1964)]{Taylor64}
+{\sc \au{Taylor, G.~I.}} \yr{1964}  \at{Disintegration of water drops in an
+  electric field}.  \jt{Proceedings of the Royal Society of London Series A:
+  Mathematical and Physical Sciences}  \bvol{280}~(1382),  \pg{383--397}.
+
+\end{thebibliography}
