@@ -50,7 +50,7 @@ h_j=\|\vec{x}_{j+1}-\vec{x}_{j}\|\quad\textrm{for}\quad j=0,\dots,N-1
 \end{equation}
 Then we  introduce $N$ chord coordinates $\{l_0,\dots,l_N\}$ with $l_0=0$ and
 \begin{equation}
-l_j=\sum_{k=0}^{j-1}h_k\quad\textrm{for}\quad j=1,\dots,N
+l_j=\sum_{k=0}^{j-1}h_k\quad\textrm{forb}\quad j=1,\dots,N
 \end{equation}
 Global spline is a collection of local splines $\{\vec{s}^{(0)},\dots,\vec{s}^{(N-1)}\}$
 where each $\vec{s}^{(j)}$ is a fifth degree polynomial defined on the interval $l\in[l_j,l_{j+1}]$,
@@ -424,10 +424,9 @@ Indices of elements $\ni$ $i$-th node if $i \textrm{ mod }  o =0$
 & $ \lfloor i / o\rfloor-1$, $ \lfloor i / o\rfloor$& check $ 0\le$ id $\le n-1$\\
 Indices of elements $\ni$  $i$-th node  if $i \textrm{ mod }  o \neq 0$
 & $ \lfloor i / o\rfloor-1$& check $ 0\le$ id $\le n-1$\\
-
 Nodal indices of $j$-th element  & $j \times o +  k$ & $0\le k \le o$\\
   \end{tabular}
-  \caption{Indices}
+  \caption{Indicesffffffffffffk}
   \label{tab:kd}
   \end{center}
 \end{table}
