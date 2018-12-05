@@ -12,6 +12,10 @@
 \usepackage{epstopdf, epsfig}\epstopdfsetup{ suffix=}
 \usepackage[colorlinks = true, citecolor = blue]{hyperref}
 \usepackage{amsmath}
+
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \shorttitle{Dynamic Taylor Cone Revisited}
 \shortauthor{C. Zhou and S. M. Troian}
@@ -50,7 +54,7 @@ h_j=\|\vec{x}_{j+1}-\vec{x}_{j}\|\quad\textrm{for}\quad j=0,\dots,N-1
 \end{equation}
 Then we  introduce $N$ chord coordinates $\{l_0,\dots,l_N\}$ with $l_0=0$ and
 \begin{equation}
-l_j=\sum_{k=0}^{j-1}h_k\quad\textrm{forb}\quad j=1,\dots,N
+l_j=\sum_{k=0}^{j-1}h_k\quad\textrm{for}\quad j=1,\dots,N
 \end{equation}
 Global spline is a collection of local splines $\{\vec{s}^{(0)},\dots,\vec{s}^{(N-1)}\}$
 where each $\vec{s}^{(j)}$ is a fifth degree polynomial defined on the interval $l\in[l_j,l_{j+1}]$,
@@ -406,8 +410,8 @@ we can simplify the elliptic integrals,
 2\big\{1+[(z-z')/r]^2\big\}^{3/2}
 }\,\mathrm{d}t
 \end{align}
-The above integrands have well-definite limit as $\vec{\eta}\to\vec{\eta}'$
-as long as $\ddot{z}/\dot{r}$ at $r=0$ is finite.
+The above integrands have well-defined limit as $\vec{\eta}\to\vec{\eta}'$
+assuming $\ddot{z}/\dot{r}$ is finite at $r=0$.
 
 \subsection{Assembly}
 \begin{table}
@@ -426,16 +430,37 @@ Indices of elements $\ni$  $i$-th node  if $i \textrm{ mod }  o \neq 0$
 & $ \lfloor i / o\rfloor-1$& check $ 0\le$ id $\le n-1$\\
 Nodal indices of $j$-th element  & $j \times o +  k$ & $0\le k \le o$\\
   \end{tabular}
-  \caption{Indicesfffffffk}
+  \caption{Index involved}
   \label{tab:kd}
   \end{center}
 \end{table}
 
+\begin{algorithm}
+  \caption{Counting mismatches between two packed strings
+    \label{alg:packed-dna-hamming}}
+  \begin{algorithmic}[1]
+%\algloop{For}
+    \Function{Distance}{$x$, $e$}
+    \For{$ 0\le i \le N_x - 1$ } \hfill\text{\# We can parallelize this loop}
+    \If{$i \textrm{ mod } o = 0$}     
+\State    $I_\mathrm{lower}$  =    $I_\mathrm{upper}$  
+          \Else
+\State              $I_\mathrm{lower} = \lfloor i/o\rfloor - 1$,\quad
+              $I_\mathrm{upper} = \lfloor i/o\rfloor$  
+          \EndIf
+    \For{$ 0\le i \le N_x - 1$ } 
+    
+    \EndFor
+    
+    
+    \EndFor
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
 
-
-
-
-
+\begin{equation}
+(\mat{B}+\mat{D})\vec{p} = \mat{S}\vec{q}
+\end{equation}
 
 
 

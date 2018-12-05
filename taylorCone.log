@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.28)  4 DEC 2018 12:19
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.28)  5 DEC 2018 13:15
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -344,45 +344,84 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \mathdisplay@stack=\toks20
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
+)
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/algorithms/algorithm
+.sty
+Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
+nment
+ (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count114
+\float@exts=\toks21
+\float@box=\box30
+\@float@everytoks=\toks22
+\@floatcapt=\box31
+) (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2014/09/29 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\@float@every@algorithm=\toks23
+\c@algorithm=\count115
+)
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/algorithmicx/algpseu
+docode.sty
+Package: algpseudocode 
+
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/algorithmicx/algorit
+hmicx.sty
+Package: algorithmicx 2005/04/27 v1.2 Algorithmicx
+
+Document Style algorithmicx 1.2 - a greatly improved `algorithmic' style
+\c@ALG@line=\count116
+\c@ALG@rem=\count117
+\c@ALG@nested=\count118
+\ALG@tlm=\skip52
+\ALG@thistlm=\skip53
+\c@ALG@Lnr=\count119
+\c@ALG@blocknr=\count120
+\c@ALG@storecount=\count121
+\c@ALG@tmpcounter=\count122
+\ALG@tmplength=\skip54
+)
+Document Style - pseudocode environments for use with the `algorithmicx' style
 ) (./taylorCone.macro) (./natbib.sty
 Package: natbib 2000/07/24 7.0a (PWD)
-\bibhang=\skip52
-\bibsep=\skip53
+\bibhang=\skip55
+\bibsep=\skip56
 LaTeX Info: Redefining \cite on input line 508.
-\c@NAT@ctr=\count114
+\c@NAT@ctr=\count123
 ) (./taylorCone.aux)
 \openout1 = `taylorCone.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
+LaTeX Font Info:    ... okay on input line 37.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count115
+\scratchcounter=\count124
 \scratchdimen=\dimen119
-\scratchbox=\box30
-\nofMPsegments=\count116
-\nofMParguments=\count117
-\everyMPshowfont=\toks21
-\MPscratchCnt=\count118
+\scratchbox=\box32
+\nofMPsegments=\count125
+\nofMParguments=\count126
+\everyMPshowfont=\toks24
+\MPscratchCnt=\count127
 \MPscratchDim=\dimen120
-\MPnumerator=\count119
-\makeMPintoPDFobject=\count120
-\everyMPtoPDFconversion=\toks22
+\MPnumerator=\count128
+\makeMPintoPDFobject=\count129
+\everyMPtoPDFconversion=\toks25
 )
-\AtBeginShipoutBox=\box31
+\AtBeginShipoutBox=\box33
 
 
 Package hyperref Warning: Height of page (\paperheight) is invalid (0.0pt),
@@ -397,7 +436,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 137.
 )
-Package hyperref Info: Link coloring ON on input line 33.
+Package hyperref Info: Link coloring ON on input line 37.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -406,21 +445,21 @@ Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 tring.sty
 Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
-\c@section@level=\count121
+\c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 33.
-LaTeX Info: Redefining \pageref on input line 33.
-LaTeX Info: Redefining \nameref on input line 33.
+LaTeX Info: Redefining \ref on input line 37.
+LaTeX Info: Redefining \pageref on input line 37.
+LaTeX Info: Redefining \nameref on input line 37.
  (./taylorCone.out) (./taylorCone.out)
 \@outlinefile=\write3
 \openout3 = `taylorCone.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 35.
+LaTeX Font Info:    Try loading font information for U+msa on input line 39.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 35.
+LaTeX Font Info:    Try loading font information for U+msb on input line 39.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -435,12 +474,12 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [1{c:/Program Files (x86)/TeX Live/2014/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}
 Non-PDF special ignored!]
-Overfull \hbox (18.7978pt too wide) detected at line 104
+Overfull \hbox (18.7978pt too wide) detected at line 108
 []
  []
 
 
-Overfull \hbox (0.8149pt too wide) detected at line 124
+Overfull \hbox (0.8149pt too wide) detected at line 128
 []
  []
 
@@ -448,17 +487,17 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.166 \end{alignat}
+l.170 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.166 \end{alignat}
+l.170 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.166 \end{alignat}
+l.170 \end{alignat}
                    
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -466,80 +505,94 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 1.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.200 \end{alignat}
+l.204 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.200 \end{alignat}
+l.204 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.200 \end{alignat}
+l.204 \end{alignat}
                     [3] [4]
-Overfull \hbox (0.50984pt too wide) in paragraph at lines 331--331
+Overfull \hbox (0.50984pt too wide) in paragraph at lines 335--335
 [] 
  []
 
-[5] (./taylorCone.bbl
-Underfull \vbox (badness 3019) has occurred while \output is active []
+[5]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 440.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 462.
 
- [6])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 454.
+ (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/psnfss/ot1phv.fd
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+)
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <7> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <5> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
+ (./taylorCone.bbl [6])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 479.
+ [7pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
+has been already used, duplicate ignored
 
-[7]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 454.
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.479 \end{document}
+                    ]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 479.
  (./taylorCone.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 454.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 454.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 479.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 479.
 Package rerunfilecheck Info: File `taylorCone.out' has not changed.
 (rerunfilecheck)             Checksum: 8C851F5154CD7E5A4E964C371E248895;385.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 7062 strings out of 493109
- 99026 string characters out of 6129155
- 205084 words of memory out of 5000000
- 10352 multiletter control sequences out of 15000+600000
- 17447 words of font info for 65 fonts, out of 8000000 for 9000
+ 7752 strings out of 493109
+ 109226 string characters out of 6129155
+ 214964 words of memory out of 5000000
+ 11017 multiletter control sequences out of 15000+600000
+ 20705 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,19n,28p,844b,444s stack positions out of 5000i,500n,10000p,200000b,80000s
-<c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/
-cmextra/cmbsy7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmbx10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Program Files (x86)/TeX Live/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><c:/Program Files (x86)/T
-eX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/Program Fi
-les (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><
+ 42i,19n,28p,844b,434s stack positions out of 5000i,500n,10000p,200000b,80000s
+{c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}
+<c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm
+extra/cmbsy7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmbx10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmbx12.pfb><c:/Program Files (x86)/TeX Live/2014/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><c:/Program Files (x86)/TeX
+ Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb><c:/Program File
+s (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:
+/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+ex10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/typ
+e1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Program Files (x86)/TeX Live/201
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/Program Files (x86)/T
+eX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/Program 
+Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
 c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmex10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmmi10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Program Files (x86)/TeX Live/2
-014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/Program Files (x86)
-/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/Progra
-m Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
-><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmr5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr6.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmr7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/Program Files (x86)/TeX Live/2014/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Program Files (x86)/Te
-X Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Fil
-es (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/
-Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmti8.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmti9.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/
-fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on taylorCone.pdf (7 pages, 279501 bytes).
+cmr5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmr6.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmr7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmr9.pfb><c:/Program Files (x86)/TeX Live/2014/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Program Files (x86)/TeX 
+Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Files
+ (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/Pr
+ogram Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
+0.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmti8.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmti9.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fo
+nts/type1/public/amsfonts/symbols/msam10.pfb><c:/Program Files (x86)/TeX Live/2
+014/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb>
+Output written on taylorCone.pdf (7 pages, 289595 bytes).
 PDF statistics:
- 230 PDF objects out of 1000 (max. 8388607)
- 195 compressed objects within 2 object streams
- 64 named destinations out of 1000 (max. 500000)
+ 238 PDF objects out of 1000 (max. 8388607)
+ 201 compressed objects within 3 object streams
+ 66 named destinations out of 1000 (max. 500000)
  49 words of extra memory for PDF output out of 10000 (max. 10000000)
 
