@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.28)  5 DEC 2018 13:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/W32TeX) (preloaded format=pdflatex 2015.1.28)  10 DEC 2018 22:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -345,6 +345,12 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 LaTeX Info: Redefining \[ on input line 2665.
 LaTeX Info: Redefining \] on input line 2666.
 )
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/wasysym/wasysym.sty
+Package: wasysym 2003/10/30 v2.0 Wasy-2 symbol support package
+\symwasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `wasy' in version `bold'
+(Font)                  U/wasy/m/n --> U/wasy/b/n on input line 90.
+)
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/algorithms/algorithm
 .sty
 Package: algorithm 2009/08/24 v0.1 Document Style `algorithm' - floating enviro
@@ -392,20 +398,20 @@ LaTeX Info: Redefining \cite on input line 508.
 ) (./taylorCone.aux)
 \openout1 = `taylorCone.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -436,7 +442,7 @@ File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
 Package color Info: Driver file: pdftex.def on input line 137.
 )
-Package hyperref Info: Link coloring ON on input line 37.
+Package hyperref Info: Link coloring ON on input line 38.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
@@ -447,24 +453,40 @@ Package: gettitlestring 2010/12/03 v1.4 Cleanup title references (HO)
 )
 \c@section@level=\count130
 )
-LaTeX Info: Redefining \ref on input line 37.
-LaTeX Info: Redefining \pageref on input line 37.
-LaTeX Info: Redefining \nameref on input line 37.
+LaTeX Info: Redefining \ref on input line 38.
+LaTeX Info: Redefining \pageref on input line 38.
+LaTeX Info: Redefining \nameref on input line 38.
  (./taylorCone.out) (./taylorCone.out)
 \@outlinefile=\write3
 \openout3 = `taylorCone.out'.
 
-LaTeX Font Info:    Try loading font information for U+msa on input line 39.
+LaTeX Font Info:    Try loading font information for U+msa on input line 40.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 39.
+LaTeX Font Info:    Try loading font information for U+msb on input line 40.
 
 (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-Underfull \vbox (badness 8075) has occurred while \output is active []
+LaTeX Font Info:    Try loading font information for U+wasy on input line 40.
+
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/wasysym/uwasy.fd
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
+(./taylorCone.toc)
+\tf@toc=\write4
+\openout4 = `taylorCone.toc'.
+
+
+
+LaTeX Font Warning: Font shape `U/wasy/b/n' in size <7> not available
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 51.
+
+
+LaTeX Font Warning: Font shape `U/wasy/b/n' in size <5> not available
+(Font)              Font shape `U/wasy/m/n' tried instead on input line 51.
 
 
 Underfull \hbox (badness 10000) has occurred while \output is active
@@ -474,12 +496,7 @@ Underfull \hbox (badness 10000) has occurred while \output is active
 [1{c:/Program Files (x86)/TeX Live/2014/texmf-var/fonts/map/pdftex/updmap/pdfte
 x.map}
 Non-PDF special ignored!]
-Overfull \hbox (18.7978pt too wide) detected at line 108
-[]
- []
-
-
-Overfull \hbox (0.8149pt too wide) detected at line 128
+Overfull \hbox (0.8149pt too wide) detected at line 130
 []
  []
 
@@ -487,78 +504,115 @@ pdfTeX warning (ext4): destination with the same identifier (name{equation.1.1}
 ) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.170 \end{alignat}
+l.172 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.170 \end{alignat}
+l.172 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.170 \end{alignat}
-                   
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2]pdfTeX warning (ext4): destination with the same identifier (name{equation.
-1.1}) has been already used, duplicate ignored
+l.172 \end{alignat}
+                    [2]pdfTeX warning (ext4): destination with the same identif
+ier (name{equation.1.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.204 \end{alignat}
+l.206 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.2}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.204 \end{alignat}
+l.206 \end{alignat}
                    pdfTeX warning (ext4): destination with the same identifier 
 (name{equation.1.3}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.204 \end{alignat}
-                    [3] [4]
-Overfull \hbox (0.50984pt too wide) in paragraph at lines 335--335
-[] 
- []
-
-[5]
-Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
-put line 440.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 462.
-
- (c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/psnfss/ot1phv.fd
-File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
-)
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <7> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
-LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <5> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 462.
- (./taylorCone.bbl [6])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 479.
- [7pdfTeX warning (ext4): destination with the same identifier (name{table.1}) 
-has been already used, duplicate ignored
+l.206 \end{alignat}
+                    [3] [4] [5pdfTeX warning (ext4): destination with the same 
+identifier (name{table.1}) has been already used, duplicate ignored
 
 \AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
                                                   \fi \fi 
-l.479 \end{document}
+l.346 \end{equation}
                     ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 479.
+Overfull \hbox (0.50984pt too wide) in paragraph at lines 368--368
+[] 
+ []
+
+
+Underfull \vbox (badness 1701) has occurred while \output is active []
+
+ [6]
+Package hyperref Info: bookmark level for unknown algorithm defaults to 0 on in
+put line 473.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 495.
+
+
+(c:/Program Files (x86)/TeX Live/2014/texmf-dist/tex/latex/psnfss/ot1phv.fd
+File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
+)
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 495.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <7> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 495.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <5> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 495.
+
+[7pdfTeX warning (ext4): destination with the same identifier (name{table.2}) h
+as been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.512 \end{equation}
+                    ] [8] <../Figure/test.pdf, id=186, 266.9975pt x 112.42pt>
+File: ../Figure/test.pdf Graphic file (type pdf)
+
+<use ../Figure/test.pdf>
+Package pdftex.def Info: ../Figure/test.pdf used on input line 617.
+(pdftex.def)             Requested size: 351.43147pt x 147.95424pt.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <9> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 625.
+LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <6> not available
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 625.
+
+<../Figure/fig02.pdf, id=190, 175.65625pt x 91.34125pt>
+File: ../Figure/fig02.pdf Graphic file (type pdf)
+
+<use ../Figure/fig02.pdf>
+Package pdftex.def Info: ../Figure/fig02.pdf used on input line 643.
+(pdftex.def)             Requested size: 229.82188pt x 119.50148pt.
+ [9pdfTeX warning (ext4): destination with the same identifier (name{figure.1})
+ has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.647 
+       <../Figure/test.pdf>] (./taylorCone.bbl)
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 679.
+ [10pdfTeX warning (ext4): destination with the same identifier (name{figure.2}
+) has been already used, duplicate ignored
+
+\AtBegShi@Output ...ipout \box \AtBeginShipoutBox 
+                                                  \fi \fi 
+l.679 \end{document}
+                     <../Figure/fig02.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 679.
  (./taylorCone.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 479.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 479.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 679.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 679.
 Package rerunfilecheck Info: File `taylorCone.out' has not changed.
-(rerunfilecheck)             Checksum: 8C851F5154CD7E5A4E964C371E248895;385.
+(rerunfilecheck)             Checksum: 4A72C36562A3E42DC6E90468C6100EDC;630.
  ) 
 Here is how much of TeX's memory you used:
- 7752 strings out of 493109
- 109226 string characters out of 6129155
- 214964 words of memory out of 5000000
- 11017 multiletter control sequences out of 15000+600000
- 20705 words of font info for 70 fonts, out of 8000000 for 9000
+ 7992 strings out of 493109
+ 112007 string characters out of 6129155
+ 217430 words of memory out of 5000000
+ 11213 multiletter control sequences out of 15000+600000
+ 23613 words of font info for 80 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 42i,19n,28p,844b,434s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 42i,19n,28p,869b,373s stack positions out of 5000i,500n,10000p,200000b,80000s
 {c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/enc/dvips/base/8r.enc}
 <c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm
 extra/cmbsy7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/p
@@ -569,30 +623,36 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><c:/Program Files (x86)/TeX
 s (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb><c:
 /Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ex10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmmi10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Program Files (x86)/TeX Live/201
-4/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/Program Files (x86)/T
-eX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/Program 
-Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr5.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/am
-sfonts/cm/cmr6.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmr7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmr9.pfb><c:/Program Files (x86)/TeX Live/2014/te
-xmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Program Files (x86)/TeX 
-Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Files
- (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/Pr
-ogram Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti1
-0.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfo
-nts/cm/cmti8.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmti9.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fo
-nts/type1/public/amsfonts/symbols/msam10.pfb><c:/Program Files (x86)/TeX Live/2
-014/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb>
-Output written on taylorCone.pdf (7 pages, 289595 bytes).
+sfonts/cmextra/cmex9.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi10.pfb><c:/Program Files (x86)/TeX Live/2014/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files (x86)/TeX Liv
+e/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/Program Files (x
+86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Progr
+am Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pf
+b><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmib10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/pub
+lic/amsfonts/cmextra/cmmib7.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Program Files (x86)/TeX Live/201
+4/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/Program Files (x86)/Te
+X Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/Program File
+s (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/Pr
+ogram Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
+pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy6.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Files (x86)/TeX Live/2014/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/Program Files (x86)/TeX Li
+ve/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Program Files 
+(x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb><c:/Pro
+gram Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.
+pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/type1/public/amsfont
+s/symbols/msam10.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fonts/typ
+e1/urw/helvetic/uhvbo8a.pfb><c:/Program Files (x86)/TeX Live/2014/texmf-dist/fo
+nts/type1/public/wasy2-ps/wasy9.pfb>
+Output written on taylorCone.pdf (10 pages, 402638 bytes).
 PDF statistics:
- 238 PDF objects out of 1000 (max. 8388607)
- 201 compressed objects within 3 object streams
- 66 named destinations out of 1000 (max. 500000)
- 49 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 384 PDF objects out of 1000 (max. 8388607)
+ 320 compressed objects within 4 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 91 words of extra memory for PDF output out of 10000 (max. 10000000)
 
