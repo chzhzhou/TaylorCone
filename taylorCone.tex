@@ -229,19 +229,21 @@ L_j = \int_{0}^1\dot{\vec{s}}^{(j)}\,\mathrm{d}t',\quad
 \end{equation}
 Convention for normal vector $\vec{n}$,
 \begin{equation}
-\vec{n}=\frac{(-\dot{z},\dot{r})}{\|\dot{\vec{s}}\|}
+\vec{n}=\frac{1}{\|\dot{\vec{s}}\|}(-\dot{z},\dot{r})
 \end{equation}
-
+In addition the total curvature $2\kappa$ of the surface of revolution obtained by rotating curve $\vec{s}(t)$
+about the $z$-axis is given by,
+\begin{equation}
+2\kappa= \frac{\dot{r}\ddot{z} - \dot{z}\ddot{r}}{(\dot{r}^2+\dot{z}^2)^{\frac{3}{2}}}
++\frac{1}{r}\frac{\dot{z}}{\sqrt{\dot{r}^2+\dot{z}^2}}
+=2\frac{\ddot{z}}{\dot{r}^2} \textrm{ if on symmetry axis} 
+\end{equation}
 \section{Numerical approximation}
 \subsection{Gaussian  quadrature}
 Standard $m$-point Gauss-Legendre quadrature,
 \begin{equation}
 \int_0^1 f(t)\,\mathrm{d}t\approx \sum_{k=1}^{m}w_k f(x_k),\quad
-\int_a^b f(t)\,\mathrm{d}t\Rightarrow
-%\int_a^b =\sum_{k=1}^{m}(b-a)w_k f(a+(b-a)x_k),
-\begin{aligned}
-x_k&\to a+(b-a)x_k\\ w_k&\to (b-a)w_k
-\end{aligned}
+\int_a^b f(t)\,\mathrm{d}t\approx \sum_{k=1}^{m}(b-a)w_k f( a+(b-a)x_k)
 \end{equation}
 Logarithmic-weighted Gauss quadrature,
 \begin{equation}
@@ -627,6 +629,7 @@ linear fit of the last five points of each error convergence (inset).
 \end{figure}
 
 \section{Self-similar Taylor cone}
+\subsection{Prepare for iteration}
 In the last section we outline the numerical procedure to solve Laplace equation subject to mixed boundary conditions.
 Initial guess is a $C^3$ continuous function $f_\mathrm{guess}$,
 \begin{equation}
@@ -646,17 +649,112 @@ The effect of varying $r_c$ and $c_1$ is illustrated in figure \ref{fig:initialG
 \end{figure}
 
 
+We clamp the spline function, its tangent direction and total curvature at truncation point $r_*$
+\begin{equation}
+\dot{z}=\dot{r}\dd{f}{r},\quad
+\ddot{z}
+=\frac{\ddot{r} \dot{z}+\kappa   (\dot{r}^2+\dot{z}^2)^{3/2}
+ }{\dot{r} }
+-
+\frac{\dot{z} \left(\dot{r}^2+\dot{z}^2\right)}{\dot{r} r}
+\end{equation}
+Forward, central and backward finite difference approximation to first derivative 
+with three data points $\{(x_i,f_i)\}_{i=0,1,2}$,
+\begin{align}
+f'(x_0)&\approx-f_0 \left(\frac{1}{h_0+h_1}+\frac{1}{h_0}\right)+f_1 \left(\frac{1}{h_0}
++\frac{1}{h_1}\right)-f_2 \left(\frac{1}{h_1}-\frac{1}{h_0+h_1}\right)\\
+f'(x_1)&\approx+f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)+f_1 \left(\frac{1}{h_0}
+-\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_1}-\frac{1}{h_0+h_1}\right)\\
+f'(x_2)&\approx-f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)-f_1 \left(\frac{1}{h_0}
++\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_0+h_1}+\frac{1}{h_1}\right)
+\end{align}
+where $h_i = x_{i+1} - x_i$.
+For curvature purpose, we only list the backward finite difference approximation to the second derivative
+with three- and four-point stencil,
+\begin{align}
+f''(x_2)&\approx\frac{2}{h_0}\frac{1}{h_0+h_1} f_ 0-\frac{2 }{h_0 h_1}f_ 1
++ \frac{2}{h_ 0}\left(\frac{1}{ h_ 1}-\frac{1}{h_ 0+h_ 1}\right)f_ 2\\
+\nonumber f''(x_3)&\approx-\frac{2 (h_1+2 h_2)}{h_0 (h_0+h_1) (h_0+h_1+h_2)} f_0
++\frac{2  (h_0+h_1+2 h_2)}{h_0 h_1 (h_1+h_2)}f_1\\
+&\phantom{\approx}-\frac{2  (h_0+2 (h_1+h_2))}{h_1 h_2 (h_0+h_1)}f_2
++\frac{2  (h_0+2 h_1+3 h_2)}{h_2 (h_1+h_2) (h_0+h_1+h_2)}f_3
+\end{align}
+Thus we use backward finite difference method to approximate the first and second derivatives of $r$-component of the spline at the truncation point $r_*$.
+With prescribed slope and curvature, we can compute the first and second derivatives of $z$-component.
+
+Axisymmetric harmonic function,
+\begin{align}
+\pd{}{r}R^\ell P_\ell(\cos\theta)
+&=\frac{ \ell r^2-(\ell +1)z^2 }{r}R^{\ell-2}P_\ell\left(\frac{z}{R}\right)
++\frac{(\ell+1) z }{r} R^{\ell-1}P_{\ell+1}\left(\frac{z}{R}\right)\\
+\pd{}{z}R^\ell P_\ell(\cos\theta)
+&=(2 \ell+1) z R^{\ell-2} P_\ell\left(\frac{z}{R}\right)-(\ell+1) R^{\ell-1} P_{\ell+1}\left(\frac{z}{R}\right)\\
+\pd{}{r}R^{-\ell-1} P_\ell(\cos\theta)&=\frac{(\ell+1) z }{r}R^{-\ell-2} P_{\ell+1}\left(\frac{z}{R}\right)
+-\frac{\ell+1 }{r}R^{-\ell-1} P_\ell\left(\frac{z}{R}\right)\\
+\pd{}{z}R^{-\ell-1} P_\ell(\cos\theta)&=-(\ell+1) R^{-\ell-2} P_{\ell+1}\left(\frac{z}{R}\right)
+\end{align}
+Note $\partial /\partial r$ of these axisymmetric harmonic functions at $z=0$ is well-defined and always zero due to symmetry.
 
 
+\subsection{Newton iteration}
+We aim to find the root 
+\begin{equation}
+\mathcal{B}(\vec{\eta})=\frac{2}{3}\vec{\eta}\cdot \nabla \phi  -\frac{1}{3}\phi+\frac{1}{2}|\nabla \phi|^2-2\kappa
+\end{equation}
+with 
+\begin{equation}
+\frac{2}{3}\vec{n}\cdot \vec{\eta}+\pd{\phi}{\vec{n}}=0
+\end{equation}
+Rewrite $\mathcal{B}$,
+\begin{align}
+\nonumber \mathcal{B}(\vec{\eta})&=\frac{2}{3}(\vec{n}\cdot\vec{\eta}) \pd{\phi}{\vec{n}}+
+\frac{2}{3}(\vec{s}\cdot\vec{\eta}) \pd{\phi}{\vec{s}}
+  -\frac{1}{3}\phi+\frac{1}{2}\left( \pd{\phi}{\vec{n}}\right)^2
+  +\frac{1}{2}\left( \pd{\phi}{\vec{s}}\right)^2-2\kappa\\
+  &=\frac{1}{2}\left( \pd{\phi}{\vec{s}}\right)^2+
+  \frac{2}{3}(\vec{s}\cdot\vec{\eta}) \pd{\phi}{\vec{s}}
+  -\frac{1}{3}\phi-\frac{2}{9}\left( \vec{n}\cdot \vec{\eta}\right)^2
+  -2\kappa
+\end{align}
 
-
-
-
-
-
-
-
-
+\begin{algorithm}
+  \caption{Nonlinear iteration \label{alg:??}}
+  \begin{algorithmic}[1]
+%\algloop{For}
+    \Function{Newton iteration}{$c_1$, $a_0$, $r_*$} \Comment{truncation distance $r_*$}
+    \State compute $c_0,\dots , c_4$ \Comment{$c_2=0$}
+    \State initialize guess shape $\gamma_0$\Comment{fix 1st and 2nd derivatives at the end}
+    \State initialize patch $\gamma_1$
+    \While{$\textrm{error}(\vec{\mathcal{B}})<\textrm{tolerance}$} \Comment{ $l^\infty$ error norm}
+    \ForAll{knots $\vec{\eta}_i$ of spline $\gamma_0$} 
+    \State perturb $\vec{\eta}_i \to \vec{\eta}_i+\epsilon \vec{n}_i$
+    \State compute ending derivatives $\dot{r},\ddot{r},\dot{z},\ddot{z}$
+    \State initialize perturbed spline $\underline{\gamma}_0$    
+     \State initialize perturbed Neumann condition on $\underline{\gamma}_0$    
+    \State compute solution $\underline{\phi}$ on $\underline{\gamma}_0$    
+     \State compute perturbed residue vector $\underline{\vec{\mathcal{B}}}$ on knots only
+     \State $\mathrm{col}_i(\mat{J}) = (\underline{\vec{\mathcal{B}}}-\vec{\mathcal{B}})/\epsilon$
+    \EndFor
+    \State solve $\mat{J}\, \delta\vec{n}=-\vec{\mathcal{B}}$
+    \State update $\vec{\eta}_i \to \vec{\eta}_i+\alpha \delta\vec{n}_i$ with damping rate $\alpha$
+    \State compute new residue vector $\vec{\mathcal{B}}$
+    \EndWhile        
+%    \For{$ 0\le i \le N_x - 1$ } \hfill\text{\# We can parallelize this loop}
+%    \If{$i \textrm{ mod } o = 0$}     
+%\State    $I_\mathrm{lower}$  =    $I_\mathrm{upper}$  
+%          \Else
+%\State              $I_\mathrm{lower} = \lfloor i/o\rfloor - 1$,\quad
+%              $I_\mathrm{upper} = \lfloor i/o\rfloor$  
+%          \EndIf
+%    \For{$ 0\le i \le N_x - 1$ } 
+%    
+%    \EndFor
+%    
+%    
+%    \EndFor
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
 
 
 
