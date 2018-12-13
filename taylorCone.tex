@@ -606,24 +606,27 @@ the parametrisation (\ref{eq:test_parametrisation}). All errors between numerica
 are measured in the $l^\infty$-norm,
 \begin{align}
 \|\textrm{err}_\mathrm{d}\|_\infty &= 
-\max_{\vec{x}_i\in \gamma_1}{\lvert p^\mathrm{num}_i-\phi(\vec{x}_i)\rvert}\\
+\max_{\vec{x}_i\in \gamma_1}{\lvert p^\mathrm{num}_i-\phi(\vec{x}_i)\rvert}\label{eq:errorDirichlet}\\
 \|\textrm{err}_\mathrm{n}\|_\infty &= 
-\max_{\vec{x}_i\in \gamma_0}{\lvert q^\mathrm{num}_i-\partial\phi/\partial\vec{n}(\vec{x}_i)\rvert}\\
+\max_{\vec{x}_i\in \gamma_0}{\lvert q^\mathrm{num}_i-\partial\phi/\partial\vec{n}(\vec{x}_i)\rvert}\label{eq:errorNeumann}\\
 \|\textrm{err}_\mathrm{c}\|_\infty &= 
-\max_{\vec{x}_i\in \gamma_0}{\lvert \kappa^\mathrm{spline}_i-\kappa(\vec{x}_i)\rvert}
+\max_{\vec{x}_i\in \gamma_0}{\lvert 2\kappa^\mathrm{spline}_i-2\kappa(\vec{x}_i)\rvert}\label{eq:errorCurvature}
 \end{align}
 In figure \ref{fig:test_result}(a) and \ref{fig:test_result}(b) 
 we plot these errors against the total number of degree of freedom (DOF) used by the solver.
 \begin{figure}
   \centering
-  \includegraphics[height =  5.2cm]{test.pdf}% Images in 100% size
+  \includegraphics[height = 5.5 cm]{fig01.pdf}% Images in 100% size
   \caption{
 Error convergence  between numerical and analytic solutions measured in $l^\infty$-norm against degrees of freedom (DOF) used for the test problem (\ref{eq:test_problem}):
-(a) Boundaries $\gamma_0$ (solid) and $\gamma_1$ (dashed) given by parametrisation (\ref{eq:test_parametrisation}).
-(b) Convergence of total curvature ($\blacktriangledown$) on $\gamma_0$;
-convergence of Neumann data on $\gamma_0$ with linear ($\CIRCLE $) and quadratic ($\blacksquare$) shape functions;
-convergence of Dirichlet data on $\gamma_1$ with linear ($\ocircle $) and quadratic ($\Box$) shape functions;
-linear fit of the last five points of each error convergence (inset).
+(a) Boundaries $\gamma_0$ (solid) and $\gamma_1$ (dashed) given 
+by parametrisation (\ref{eq:test_parametrisation}).
+(b) Error convergence: curvature error (\ref{eq:errorCurvature}) ($\blacktriangledown$) on $\gamma_0$;
+Neumann error (\ref{eq:errorNeumann}) on $\gamma_0$ 
+with linear ($\CIRCLE $) and quadratic ($\blacksquare$) shape functions;
+Dirichlet error (\ref{eq:errorDirichlet})  on $\gamma_1$ 
+with linear ($\ocircle $) and quadratic ($\Box$) shape functions.
+Inset: linear fit (dashed line) of the last five points of each error.
   }
 \label{fig:test_result}
 \end{figure}
@@ -643,7 +646,7 @@ Given a reasonable $c_1$, function $f_\mathrm{guess}(r)$ agrees with analytic pr
 The effect of varying $r_c$ and $c_1$ is illustrated in figure \ref{fig:initialGuess}.
 \begin{figure}
   \centering
-  \includegraphics[height =  4.2cm]{fig02.pdf}% Images in 100% size
+  \includegraphics[height =  4.65cm]{fig02.pdf}% Images in 100% size
   \caption{$C^3$ function $f_\mathrm{guess}(r)$: increasing $r_c$ (right) and $c_1$ (left)  }
 \label{fig:initialGuess}
 \end{figure}
@@ -653,7 +656,7 @@ We clamp the spline function, its tangent direction and total curvature at trunc
 \begin{equation}
 \dot{z}=\dot{r}\dd{f}{r},\quad
 \ddot{z}
-=\frac{\ddot{r} \dot{z}+\kappa   (\dot{r}^2+\dot{z}^2)^{3/2}
+=\frac{\ddot{r} \dot{z}+2\kappa   (\dot{r}^2+\dot{z}^2)^{3/2}
  }{\dot{r} }
 -
 \frac{\dot{z} \left(\dot{r}^2+\dot{z}^2\right)}{\dot{r} r}
@@ -666,18 +669,18 @@ f'(x_0)&\approx-f_0 \left(\frac{1}{h_0+h_1}+\frac{1}{h_0}\right)+f_1 \left(\frac
 f'(x_1)&\approx+f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)+f_1 \left(\frac{1}{h_0}
 -\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_1}-\frac{1}{h_0+h_1}\right)\\
 f'(x_2)&\approx-f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)-f_1 \left(\frac{1}{h_0}
-+\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_0+h_1}+\frac{1}{h_1}\right)
++\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_0+h_1}+\frac{1}{h_1}\right)\\
+f''(x_0)&\approx f''(x_1)\approx f''(x_2)\approx\frac{2}{h_0(h_0+h_1)} f_ 0-\frac{2 }{h_0 h_1}f_ 1
++ \frac{2}{ h_ 1(h_ 0+h_ 1)}f_ 2
 \end{align}
 where $h_i = x_{i+1} - x_i$.
-For curvature purpose, we only list the backward finite difference approximation to the second derivative
-with three- and four-point stencil,
+For curvature purpose, we only list the forward and
+backward finite difference approximation to the second derivative with four-point stencil,
 \begin{align}
-f''(x_2)&\approx\frac{2}{h_0}\frac{1}{h_0+h_1} f_ 0-\frac{2 }{h_0 h_1}f_ 1
-+ \frac{2}{h_ 0}\left(\frac{1}{ h_ 1}-\frac{1}{h_ 0+h_ 1}\right)f_ 2\\
-\nonumber f''(x_3)&\approx-\frac{2 (h_1+2 h_2)}{h_0 (h_0+h_1) (h_0+h_1+h_2)} f_0
-+\frac{2  (h_0+h_1+2 h_2)}{h_0 h_1 (h_1+h_2)}f_1\\
-&\phantom{\approx}-\frac{2  (h_0+2 (h_1+h_2))}{h_1 h_2 (h_0+h_1)}f_2
-+\frac{2  (h_0+2 h_1+3 h_2)}{h_2 (h_1+h_2) (h_0+h_1+h_2)}f_3
+\nonumber f''(x_3)\approx&&-\frac{2 (h_1+2 h_2)}{h_0 (h_0+h_1) (h_0+h_1+h_2)} f_0
+&&+\frac{2  (h_0+h_1+2 h_2)}{h_0 h_1 (h_1+h_2)}f_1\\
+\phantom{\approx}&&-\frac{2  (h_0+2 (h_1+h_2))}{h_1 h_2 (h_0+h_1)}f_2
+&&+\frac{2  (h_0+2 h_1+3 h_2)}{h_2 (h_1+h_2) (h_0+h_1+h_2)}f_3
 \end{align}
 Thus we use backward finite difference method to approximate the first and second derivatives of $r$-component of the spline at the truncation point $r_*$.
 With prescribed slope and curvature, we can compute the first and second derivatives of $z$-component.
