@@ -1,0 +1,835 @@
+% This is file JFM2esam.tex
+% first release v1.0, 20th October 1996
+%       release v1.01, 29th October 1996
+%       release v1.1, 25th June 1997
+%       release v2.0, 27th July 2004
+%       release v3.0, 16th July 2014
+%   (based on JFMsampl.tex v1.3 for LaTeX2.09)
+% Copyright (C) 1996, 1997, 2014 Cambridge University Press
+
+\documentclass{jfm}
+\usepackage{graphicx}  \graphicspath{{../FigureNumeric/}}
+\usepackage{epstopdf, epsfig}\epstopdfsetup{ suffix=}
+\usepackage[colorlinks = true, citecolor = blue]{hyperref}
+\usepackage{amsmath}
+\usepackage{wasysym}
+\usepackage{algorithm}% http://ctan.org/pkg/algorithms
+\usepackage{algpseudocode}
+\usepackage{natbib} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\shorttitle{Dynamic Taylor Cone Revisited}
+\shortauthor{C. Zhou and S. M. Troian}
+
+\title{Dynamic Taylor Cone Part II: Numeric Scheme}
+
+\author{ Chengzhe Zhou\aff{1}
+ \and S. M. Troian\aff{2}   \corresp{\email{stroian@caltech.edu}}} 
+
+\affiliation{\aff{1}Division of Physics, Mathematics and Astronomy, California Institute of Technology,
+Pasadena, CA 91125, USA
+\aff{2}Department of Applied Physics and Materials Science, 
+%Division of Engineering and Applied Science,
+California Institute of Technology,
+Pasadena, CA 91125, USA}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{taylorCone.macro}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle
+\tableofcontents
+\begin{abstract}
+Numeric scheme %\citep{Taylor64}
+\end{abstract}
+
+\begin{keywords}
+electrohydrodynamics, free surface flow, surface singularity \comment{(Authors should
+not enter keywords on the manuscript)}
+\end{keywords}
+\section{Numerical approximation}
+\subsection{Quintic spline}
+The accuracy of the numerical solution to boundary integral equation is directly affected by
+the precision and smoothness of the underlying geometry, in this case a planar curve.
+Numerically we compute a quintic spline curve that interpolates through a discrete set of marker points
+that is at least continuous up to fourth derivative \citep{Mund75}.
+
+Consider $N + 1$ marker points $\{\vec{x}_0,\dots,\vec{x}_{N}\}$.
+A natural choice for the intrinsic coordinate that can be used for interpolation
+is the chord length,
+\begin{equation}
+h_j=\|\vec{x}_{j+1}-\vec{x}_{j}\|\quad\textrm{for}\quad j=0,\dots,N-1
+\end{equation}
+where $h_j$ is the the euclidean distance between adjacent marker points $\vec{x}j$ and $\vec{x}_{j+1}$.
+Then we  introduce $N+1$ chord coordinates $\{l_0,\dots,l_N\}$,
+\begin{equation}
+l_0=0,\quad l_j=\sum_{k=0}^{j-1}h_k\quad\textrm{for}\quad j=1,\dots,N
+\end{equation}
+Global spline $\vec{s}(l)$ is a collection of local splines $\{\vec{s}^{(0)},\dots,\vec{s}^{(N-1)}\}$
+where each $\vec{s}^{(j)}$ is a fifth degree polynomial defined on the interval $l\in[l_j,l_{j+1}]$,
+\begin{equation}
+\vec{s}^{(j)}(l)=\vec{x}_j+\sum_{k=1}^{5}\vec{c}^{(j)}_k(l-l_j)^k,
+\quad\textrm{for}\quad j=0,\dots,N-1
+\end{equation}
+Continuity between neighboring splines is satisfied up to the fourth derivative,
+\begin{equation}
+\left.\dd{^{p}\vec{s}^{(j)}}{l^p}\right|_{l_{j+1}}=
+\left.\dd{^{p}\vec{s}^{(j+1)}}{l^p}\right|_{l_{j+1}},
+\quad\textrm{for}\quad p=0,\dots,4
+\end{equation}
+These continuity conditions yield five equations
+\begin{subequations}\label{eq:spline_cont}%\left.
+\begin{align}\nonumber
+\vec{c}^{(j-1)}_3h_{j-1}^3+\vec{c}^{(j-1)}_4h_{j-1}^4+\vec{c}^{(j-1)}_5h_{j-1}^5
+&=\vec{x}_j-\vec{x}_{j-1}\\%-\vec{c}^{(j-1)}_1h_{j-1}-\vec{c}^{(j-1)}_2h_{j-1}^2\\
+&\phantom{=}-\vec{c}^{(j-1)}_1h_{j-1}-\vec{c}^{(j-1)}_2h_{j-1}^2\\
+3\vec{c}^{(j-1)}_3h_{j-1}^2+4\vec{c}^{(j-1)}_4h_{j-1}^3+5\vec{c}^{(j-1)}_5h_{j-1}^4
+&=-\vec{c}^{(j-1)}_1-2\vec{c}^{(j-1)}_2h_{j-1}+\vec{c}_1^{(j)}\\
+6\vec{c}^{(j-1)}_3h_{j-1}+12\vec{c}^{(j-1)}_4h_{j-1}^2+20\vec{c}^{(j-1)}_5h_{j-1}^3
+&=-2\vec{c}^{(j-1)}_2+2\vec{c}_2^{(j)}\\
+\vec{c}_3^{(j-1)}+4 h_{j-1} \vec{c}_4^{(j-1)}+10 h_{j-1}^2 \vec{c}_5^{(j-1)}
+&=\vec{c}_3^{(j)}\\
+\vec{c}_4^{(j-1)}+5 h_{j-1} \vec{c}_5^{(j-1)}
+&=\vec{c}_4^{(j)}
+\end{align}%\right\}
+\end{subequations}
+We express the entire spline only in terms of the first and second coefficients 
+$\{\vec{c}^{(j)}_1\}$ and $\{\vec{c}^{(j)}_2\}$.
+We first solve equations 
+(\ref{eq:spline_cont}$\,a$, \ref{eq:spline_cont}$\,c$, \ref{eq:spline_cont}$\,b$) for $\vec{c}^{(j-1)}_3$,
+ $\vec{c}^{(j-1)}_4$ and $\vec{c}^{(j-1)}_5$,
+\begin{subequations}\label{eq:spline_c3c4c5}
+\begin{align}
+\nonumber h^3_{j-1}\vec{c}^{(j-1)}_3=&+10( \vec{x}_j- \vec{x}_{j-1})\\
+&-6 h_{j-1} \vec{c}_1^{(j-1)}
+-3 h_{j-1}^2 \vec{c}_2^{(j-1)}
+-4 h_{j-1} \vec{c}_1^{(j)}
++h_{j-1}^2 \vec{c}_2^{(j)}\\
+\nonumber h^4_{j-1}\vec{c}^{(j-1)}_4=&-15 (\vec{x}_j- \vec{x}_{j-1})\\
+&+8 h_{j-1} \vec{c}_1^{(j-1)}
++3 h_{j-1}^2 \vec{c}_2^{(j-1)}
++7 h_{j-1} \vec{c}_1^{(j)}
+-2 h_{j-1}^2 \vec{c}_2^{(j)}\\
+\nonumber h^5_{j-1}\vec{c}^{(j-1)}_5=&+\phantom{1}6( \vec{x}_j- \vec{x}_{j-1})\\
+&-3 h_{j-1} \vec{c}_1^{(j-1)}
+-\phantom{1}h_{j-1}^2 \vec{c}_2^{(j-1)}
+-3 h_{j-1} \vec{c}_1^{(j)}
++\phantom{1}h_{j-1}^2 \vec{c}_2^{(j)}
+\end{align}
+\end{subequations}
+Once we have $\{\vec{c}^{(j)}_1\}$ and $\{\vec{c}^{(j)}_2\}$ computed,
+$\{\vec{c}^{(j)}_3\}$, $\{\vec{c}^{(j)}_4\}$ and $\{\vec{c}^{(j)}_5\}$
+can be derived.
+
+
+
+Define $\lambda=h_j/h_{j-1}$. We have $2(N-1)$ equations for $j=1,\dots, N-1$,
+\begin{equation}\label{eq:spline_mid}
+\left.\begin{aligned}
+10\left[+ \lambda^3 \vec{x}_{j-1}- (1+\lambda^3) \vec{x}_j+\vec{x}_{j+1}\right]=
+&&4 h_{j} \lambda^2 \vec{c}_1^{(j-1)}
+&&+6 h_{j} (\lambda^2-1) \vec{c}_1^{(j)}
+&&-4 h_{j} \vec{c}_1^{(j+1)}\\
+&&+h_{j}^2 \lambda \vec{c}_2^{(j-1)}
+&&-3 h_{j}^2 (1+\lambda) \vec{c}_2^{(j)}
+&&+h_{j}^2 \vec{c}_2^{(j+1)}
+\\
+15 \left[- \lambda^4 \vec{x}_{j-1}+ (\lambda^4-1) \vec{x}_j+\vec{x}_{j+1}\right]=
+&&7 h_{j} \lambda^3 \vec{c}_1^{(j-1)}
+&&+8 h_{j} (1+\lambda^3) \vec{c}_1^{(j)}
+&&+7 h_{j} \vec{c}_1^{(j+1)}\\
+&&+2 h_{j}^2 \lambda^2 \vec{c}_2^{(j-1)}
+&&+3h_{j}^2 (1- \lambda^2) \vec{c}_2^{(j)}
+&&-2 h_{j}^2 \vec{c}_2^{(j+1)}
+\end{aligned}\right\}
+\end{equation}
+for $2(N+1)$ unknowns,
+ $\{\vec{c}_1^{(0)},\dots,\vec{c}_1^{(N)}\}$ and  $\{\vec{c}_2^{(0)},\dots,\vec{c}_2^{(N)}\}$.
+The imposed boundary conditions at the beginning and end of the global spline
+produce four additional equations for
+$\{\vec{c}_1^{(0)}, \vec{c}_2^{(0)},\vec{c}_1^{(N)}, \vec{c}_2^{(N)}\}$.
+Note we have implicitly introduced a ghost spline $\vec{s}^{(N)}$
+which satisfies all continuity conditions with $\vec{s}^{(N-1)}$.
+The purpose of $\vec{s}^{(N)}$ is to deal with boundary conditions at the end of spline.
+
+\par In general there are three types of boundary conditions at each end.
+Let $x$, $s$ and  ${c}^{(j)}$ be one of the scalar components of vector $\vec{x}_j$,
+spline $\vec{s}^{(j)}$ and coefficient $\vec{c}^{(j)}$.
+We first consider boundary conditions at $l=l_0$,
+\begin{alignat}{3}
+\textrm{Even:}\quad&&0&=\dd{s^{(0)}}{l}=\dd{^3s^{(0)}}{l^3}&&\quad\textrm{at}\quad l=l_0\\
+\textrm{Odd:}\quad&&0&=s^{(0)}=\dd{^2s^{(0)}}{l^2}=\dd{^4s^{(0)}}{l^4}&&\quad\textrm{at}\quad l=l_0\\
+\textrm{Mix:}\quad&&\alpha&=\dd{s^{(0)}}{l},\quad \beta=\dd{^2s^{(0)}}{l^2}&&\quad\textrm{at}\quad l=l_0
+\end{alignat}
+which lead to two equations,
+\begin{subequations}\label{eq:spline_beginbc}
+\begin{alignat}{2}
+\left.\begin{aligned}
+c_1^{(0)}&=0\\
+6 h_{0} c_1^{(0)}
++3 h_{0}^2 c_2^{(0)}
++4 h_{0} c_1^{(1)}
+-h_{0}^2 c_2^{(1)}
+&=-10 x_{0}+10 x_1
+\end{aligned}\right\}&&\quad\textrm{Even}\\
+\left.\begin{aligned}
+-8 h_{0} c_1^{(0)}
+-3 h_{0}^2 c_2^{(0)}
+-7 h_{0} c_1^{(1)}
++2 h_{0}^2 c_2^{(1)}
+&=+15 x_{0}-15 x_1\\
+c_2^{(0)}&=0
+\end{aligned}\right\}&&\quad\textrm{Odd}\\
+\left.\begin{aligned}
+c_1^{(0)}&=\alpha\hphantom{\,15 x_{0}-15 x_1}\\
+c_2^{(0)}&=\beta/2
+\end{aligned}\right\}&&\quad\textrm{Mix}
+\end{alignat}
+\end{subequations}
+We then consider boundary conditions at $l=l_N$,
+\begin{alignat}{3}
+\textrm{Even:}\quad&&0&=\dd{s^{(N-1)}}{l}=\dd{^3s^{(N-1)}}{l^3}
+&&\quad\textrm{at}\quad l=l_N\\
+\textrm{Odd:}\quad&&0&=s^{(N-1)}=\dd{^2s^{(N-1)}}{l^2}=\dd{^4s^{(N-1)}}{l^4}
+&&\quad\textrm{at}\quad l=l_N\\
+\textrm{Mix:}\quad&&\alpha&=\dd{s^{(N-1)}}{l},\quad \beta=\dd{^2s^{(N-1)}}{l^2}
+&&\quad\textrm{at}\quad l=l_N
+\end{alignat}
+which also lead to two equations,
+\begin{subequations}\label{eq:spline_endbc}
+\begin{alignat}{2}
+\left.\begin{aligned}
+c_1^{(N)}&=0\\
+-4 h_{N-1} {c}_1^{(N-1)}
+-h_{N-1}^2 {c}_2^{(N-1)}
+-6 h_{N-1} {c}_1^{(N)}
++3 h_{N-1}^2 {c}_2^{(N)}
+&=10 {x}_{N-1}-10 {x}_N
+\end{aligned}\right\}&&\quad\textrm{Even}\\
+\left.\begin{aligned}
+-7 h_{N-1} {c}_1^{(N-1)}
+-2 h_{N-1}^2 {c}_2^{(N-1)}
+-8 h_{N-1} {c}_1^{(N)}
++3 h_{N-1}^2 {c}_2^{(N)}
+&=15 {x}_{N-1}-15 {x}_N\\
+c_2^{(N)}&=0
+\end{aligned}\right\}&&\quad\textrm{Odd}\\
+\left.\begin{aligned}
+c_1^{(N)}&=\alpha\hphantom{\!\!\!\!15 {x}_{N-1}-15 {x}_N}\\
+c_2^{(N)}&=\beta/2
+\end{aligned}\right\}&&\quad\textrm{Mix}
+\end{alignat}
+\end{subequations}
+If we arrange the unknowns into a vector,
+\begin{equation}
+\big[c_1^{(0)},c_2^{(0)},\dots,c_1^{(j)},c_2^{(j)},\dots,c_1^{(N)},c_2^{(N)}\big]
+\end{equation}
+equations (\ref{eq:spline_mid}) with one of (\ref{eq:spline_beginbc})
+and one of (\ref{eq:spline_endbc}) result in a $2(N+1)$-by-$2(N+1)$ system of linear equations,
+which corresponds to a banded diagonal sparse matrix with at most 6 non-zero elements in each row.
+The rest coefficients $\vec{c}_3^{(j)}$, $\vec{c}_4^{(j)}$ and $\vec{c}_5^{(j)}$
+can be reconstruct using equation (\ref{eq:spline_c3c4c5}).
+
+\par It is convenient to re-parametrize each local spline with a new variable $t\in[0,1]$,
+\begin{equation}
+\vec{s}^{(j)}(t)=\vec{x}_j+\sum_{k=1}^{5}\vec{c}^{(j)}_k  t ^k,
+\quad\textrm{for}\quad j=0,\dots,N-1
+\end{equation}
+by redefining $\vec{c}^{(j)}_k\to \vec{c}^{(j)}_kh_j^k$.
+We can construct Lagrange interpolations along the arc-length of the global spline
+by the local arc-length $L_j$ and its local fraction $\xi$,
+\begin{equation}
+L_j = \int_{0}^1\dot{\vec{s}}^{(j)}\,\mathrm{d}t',\quad
+\xi(t) =\frac{1}{L_j} \int_{0}^t\dot{\vec{s}}^{(j)}\,\mathrm{d}t',\quad
+\end{equation}
+Convention for normal vector $\vec{n}$,
+\begin{equation}
+\vec{n}=\frac{1}{\|\dot{\vec{s}}\|}(-\dot{z},\dot{r})
+\end{equation}
+In addition the total curvature $2\kappa$ of the surface of revolution obtained by rotating curve $\vec{s}(t)$
+about the $z$-axis is given by,
+\begin{equation}
+2\kappa= \frac{\dot{r}\ddot{z} - \dot{z}\ddot{r}}{(\dot{r}^2+\dot{z}^2)^{\frac{3}{2}}}
++\frac{1}{r}\frac{\dot{z}}{\sqrt{\dot{r}^2+\dot{z}^2}}
+=2\frac{\ddot{z}}{\dot{r}^2} \textrm{ if } r\to 0
+\end{equation}
+
+\subsection{Gaussian  quadrature}
+Standard $m$-point Gauss-Legendre quadrature,
+\begin{equation}
+\int_0^1 f(t)\,\mathrm{d}t\approx \sum_{k=1}^{m}w_k f(x_k),\quad
+\int_a^b f(t)\,\mathrm{d}t\approx \sum_{k=1}^{m}(b-a)w_k f( a+(b-a)x_k)
+\end{equation}
+Logarithmic-weighted Gauss quadrature,
+\begin{equation}
+\int_0^1 f(t) \ln t \,\mathrm{d}t\approx -\sum_{k=1}^{m}w_k^\mathrm{log} f(x_k),\quad
+\int_0^1 f(t) \ln (1-t) \,\mathrm{d}t\approx -\sum_{k=1}^{m}w_k^\mathrm{log} f(1-x_k)
+\end{equation}
+When logarithmic singularity $\tau\in (0,1)$,
+\begin{align*}
+&\int_0^1 f(t) \ln |t-\tau|\,\mathrm{d}t 
+=\int_0^\tau f(t) \ln (\tau - t)\,\mathrm{d}t+\int_\tau^1 f(t) \ln (t-\tau)\,\mathrm{d}t\\
+=&\,\tau\int_0^1 f(\tau s) \ln (\tau - \tau s)\,\mathrm{d}s
++(1-\tau) \int_0^1 f(\tau + (1-\tau) s) \ln ( (1-\tau) s)\,\mathrm{d}s\\
+=&\,\tau\int_0^1 f(\tau s) \ln (1 - s)\,\mathrm{d} s
++(1-\tau) \int_0^1 f(\tau + (1-\tau) s) \ln s\,\mathrm{d}s\\
+&\quad+\tau\ln\tau\int_0^1 f(\tau s) \,\mathrm{d} s
++(1-\tau)\ln (1-\tau) \int_0^1 f(\tau + (1-\tau) s) \,\mathrm{d}s
+\end{align*}
+Logarithmic-weighted Gauss quadrature for singularity $\tau\in (0,1)$,
+\begin{equation}\int_0^1 f(t) \ln |t-\tau|\,\mathrm{d}t 
+\approx\left\{ 
+\begin{aligned}
+\tau\ln\tau &\sum_{k=1}^m w_k f\left[\tau x_k\right] \\
++ (1- \tau)\ln(1-\tau) &\sum_{k=1}^m w_k f\left[\tau + (1-\tau)x_k\right]\\
+- \tau &\sum_{k=1}^m w_k^\mathrm{log} f\left[\tau(1 -x_k^\mathrm{log})\right]\\
+- (1- \tau) &\sum_{k=1}^m w_k^\mathrm{log} f\left[\tau + (1-\tau)x_k^\mathrm{log}\right]
+\end{aligned}\right.
+\end{equation}
+
+\subsection{Complete elliptic integral}
+The complete elliptic integral of the first and second kind,
+\begin{equation}
+K(m)=\int_0^{\pi/2}\frac{\mathrm{d}\theta}{\sqrt{1-m \sin^2 \theta}},\quad
+E(m)=\int_0^{\pi/2}\sqrt{1-m \sin^2 \theta}\,\mathrm{d}\theta
+\end{equation}
+We can approximate $K(m)$ and $E(m)$ with 
+\begin{equation}
+K(m)\approx K_P(m) -\ln(1-m) K_Q(m),\quad
+E(m)\approx E_P(m) -\ln(1-m) E_Q(m) 
+\end{equation}
+where $K_P$, $E_P$, $K_Q$, $E_Q$ are tenth-order polynomials.
+Associate Legendre polynomial of $1/2$ order can be conveniently expressed as,
+\begin{equation}
+P_{1/2}(x)=\frac{2}{\pi}\left\{2 E\left(\frac{1-x}{2}\right)-K\left(\frac{1-x}{2}\right)\right\}
+\end{equation}
+From the recursion relations,
+\begin{equation}
+\begin{aligned}
+(1+x^2)\dd{P_\ell(x)}{x}&=(\ell+1) xP_\ell(x)-(\ell+1)P_{\ell+1}(x)\\
+\dd{K}{m}&=\frac{E(m)}{2m(1-m)}-\frac{K(m)}{2m}\\
+\dd{E}{m}&=\frac{1}{2m}\left[E(m)- K(m)\right]
+\end{aligned}
+\end{equation}
+we can bootstrap higher-order associate Legendre polynomials
+of $1/2+1$, $1/2+2$ , ....
+\begin{equation}
+P_\ell (x)= c_\ell \left\{P_{\ell, E}(x)E\left(\frac{1-x}{2}\right) +   P_{\ell, K}(x)K\left(\frac{1-x}{2}\right)\right\}
+\end{equation}
+where $c_\ell$ is some constant. $P_{\ell, E}(x)$ and $P_{\ell, E}(x)$ are polynomials of $(\ell - 1/2)$ order
+whose coefficients are computed symbolically and given in Table \ref{tab:LegendrePolyCoef}.
+\begin{table}
+  \begin{center}
+\def~{\hphantom{0}}
+  \begin{tabular}{c@{\hskip 20pt}l@{\hskip 20pt} r|l}
+$\ell$&$c_\ell$  & $P_{\ell, E}(x)$   &   $P_{\ell, K}(x)$  \\[3pt]
+${1}/{2}$&${2}/{\pi }$ & $2$ & $-1$\\[2pt]
+${3}/{2}$&${1}/{3 \pi }$ & $16 x$ & $-2 (4 x+1)$\\ [2pt]
+${5}/{2}$&${1}/{15 \pi }$ & $4 \left(32 x^2-9\right)$ & $-2 \left(32 x^2+8 x-9\right)$\\[2pt]
+${7}/{2}$&${1}/{105 \pi }$ & $64 x \left(24 x^2-13\right)$ & $-2 \left(384 x^3+96 x^2-208 x-25\right)$\\[2pt]
+${9}/{2}$&${1}/{315 \pi }$ & $8192 x^4-6528 x^2+588$ & $-2 \left(2048 x^4+512 x^3-1632 x^2-264 x+147\right)$
+  \end{tabular}
+  \caption{Coefficients of associate Legendre polynomials of $\ell = 1/2$ family}
+  \label{tab:LegendrePolyCoef}
+  \end{center}
+\end{table}
+\section{Axisymmetric boundary integral}
+Consider a \textit{field point} $\vec{\eta}'$ and a \textit{source point} $\vec{\eta}$ in the axisymmetric coordinate.
+We introduce the axisymmetric Green's function $G(\vec{\eta}';\vec{\eta})$ by integrating out the azimuthal
+dependence \citep{Lennon79},
+\begin{align}
+G(\vec{\eta}';\vec{\eta})&=\frac{1}{\pi\sqrt{a+b}}K(m)\\
+\pd{G(\vec{\eta}';\vec{\eta})}{\vec{n}}&=
+\frac{1}{\pi r\sqrt{a+b}}\bigg\{
+\left[\frac{n_r}{2}+\frac{\vec{n}\cdot(\vec{x}'-\vec{x})}{\|\vec{x}'-\vec{x}\|^2}r\right]E(m)
+-\frac{n_r}{2}K(m)\bigg\}
+\end{align}
+with auxiliary variables defined as,
+\begin{equation}
+a=r'^2+r^2+(z'-z)^2,\quad b = 2 r' r,\quad m =\frac{2 b}{a+b}
+\end{equation}
+Note $\vec{\eta}\to\vec{\eta}'$ implies $m\to 1$ which leads to a logarithmic blow-up of the Green's function
+(recall elliptic integral $E(m)\sim \ln (1- m)$ as $m\to1$).
+
+
+Consider a closed, simply connected region $\Omega$
+and its boundary $\gamma$.
+Green's third identity yields the axisymmetric boundary integral equation,
+\begin{equation}\label{eq:bie}
+\int_{\gamma}
+\Big\{
+G(\vec{\eta}';\vec{\eta})\pd{\phi}{\vec{n}}(\vec{\eta})-
+\phi(\vec{\eta})\pd{G(\vec{\eta}';\vec{\eta})}{\vec{n}}(\vec{\eta})
+\Big\}
+ r \,\mathrm{d}\gamma(\vec{\eta})=\left\{
+\begin{aligned}
+&\frac{\beta(\vec{\eta}')}{2\pi}\phi(\vec{\eta}')&&\textrm{ if }\vec{\eta}'\in\gamma\\
+&\phi(\vec{\eta}')&&\textrm{ if }\vec{\eta}'\in\Omega
+\end{aligned}\right.
+\end{equation}
+Given boundary conditions on $\gamma$,
+we first solve the boundary integral equation 
+to completely determine the value of $\partial\phi/\partial \vec{n}$
+and $\phi$ on $\gamma$.
+Then any field value interior to $\Omega$ can be integrated 
+according to the classical form of Green's third identity.
+
+Boundary integral equation (\ref{eq:bie}) can be numerically solved
+by collocation method \citep{Kress13}.
+We seek an approximate solution from a finite dimensional subspace by
+requiring equation (\ref{eq:bie}) is satisfied only at a finite number of \textit{collocation points}.
+Lagrange interpolation along arc-length,
+\begin{equation}
+\phi(\vec{\eta})\approx\sum_e \sum_k p_{e_k}\mathcal{N}^{(e)}_k(\xi),\quad
+\pd{\phi}{\vec{n}}(\vec{\eta})\approx\sum_e \sum_kq_{e_k}\mathcal{N}^{(e)}_k(\xi)
+\end{equation}
+where $\mathcal{N}_k$ is the Lagrange basis of the local fractional arc-length variable $\xi$.
+We are interested in the first and second order basis which provide sufficient accuracy for our purpose.
+\begin{align}
+\textrm{1st order:}&
+&\mathcal{N}_0&=1 - \xi,
+&\mathcal{N}_1 &= \xi
+& \\
+\textrm{2nd order:}&
+&\mathcal{N}_0&=(1 - \xi) (1 - 2\xi),
+&\mathcal{N}_1&=4 \xi (1 - \xi) ,
+&\mathcal{N}_2=\xi (2 \xi- 1)
+\end{align}
+\subsection{Single layer integral}
+Single-layer integral reduces to a summation of local integrals over local arc $\gamma_e$ of element $e$,
+\begin{align}
+\nonumber\int_{\gamma}G(\vec{\eta}';\vec{\eta})
+\pd{\phi}{\vec{n}}(\vec{\eta}) r \,\mathrm{d}\gamma(\vec{\eta})
+&\approx\sum_e \sum_k q_{e_k}
+\int_{\gamma_e}G(\vec{\eta}';\vec{\eta})\mathcal{N}^{(e)}_k(\xi) r \,\mathrm{d}\gamma(\vec{\eta})\\
+&=\sum_e \sum_k q_{e_k}
+\int_0^1\frac{ r J }{\pi \sqrt{a+b}}\mathcal{N}^{(e)}_k(\xi)K(m)\,\mathrm{d}t
+\end{align}
+When singularity $\vec{\eta}'\in \gamma_e$ is located at $t=\tau \in[0,1]$,
+\begin{align*}
+\int_0^1\frac{ r J }{\pi \sqrt{a+b}}\mathcal{N}^{(e)}_kK(m)\,\mathrm{d}t
+=&\int_0^1\frac{ r J }{\pi \sqrt{a+b}}\mathcal{N}^{(e)}_k
+\left[P_K -Q_K\ln\frac{1-m}{(t-\tau)^2}-2 Q_K\ln |t-\tau| \right]\,\mathrm{d}t
+\end{align*}
+Introduce helper functions,
+\begin{align}
+f_K^\mathrm{single}(t)&= \frac{ r J }{\pi \sqrt{a+b}} \\
+R_{K/E}(m,\tau)&= P_{K/E}(m) -Q_{K/E}(m) \ln\frac{1-m}{(t-\tau)^2}
+\end{align}
+If we define integrand $I^{(o)}$ for source location $\vec{\eta}'$ outside of $\gamma_e$
+and $I^{(i)}$ for $\vec{\eta}'$ interior to $\gamma_e$,
+\begin{align}
+I^{(o)}(t) &=  f_K^\mathrm{single}(t) K(m)\mathcal{N}^{(e)}_k(\xi)\\
+I^{(i)}(t,\tau) &= f_K^\mathrm{single}(t)R_K(m,\tau)\mathcal{N}^{(e)}_k(\xi)\\
+I^{(i)}_\mathrm{log}(t) &=-2 f_K^\mathrm{single} (t)Q_K(m) \mathcal{N}^{(e)}_k(\xi)
+\end{align}
+then the local single-layer integral can be compactly represented
+with a regular part and a logarithmic-singular one,
+\begin{align}
+\vec{\eta}' \not\in \gamma_e:\,\,\textrm{compute}&\int_0^1I^{(o)}(t)\,\mathrm{d}t\\
+\vec{\eta}' \textrm{ at } t= 0:\,\,\textrm{compute}&\int_0^1I^{(i)}(t,0)\,\mathrm{d}t+
+\int_0^1I^{(i)}_\mathrm{log}(t)\ln t\,\mathrm{d}t\\
+\vec{\eta}' \textrm{ at } t= \tau:\,\,\textrm{compute}&\int_0^1I^{(i)}(t,\tau)\,\mathrm{d}t+
+\int_0^1I^{(i)}_\mathrm{log}(t)\ln|\tau-t|\,\mathrm{d}t\\
+\vec{\eta}' \textrm{ at } t= 1:\,\,\textrm{compute}&\int_0^1I^{(i)}(t,1)\,\mathrm{d}t+
+\int_0^1I^{(i)}_\mathrm{log}(t)\ln(1-t)\,\mathrm{d}t
+\end{align}
+
+
+\subsection{Double layer integral}
+Similar to singular-layer integral, double-layer integral reduces to a summation of local integrals over local arc $\gamma_e$ of element $e$,
+\begin{align}
+&\nonumber\int_{\gamma}\pd{G(\vec{\eta}';\vec{\eta})}{\vec{n}}\phi(\vec{\eta}) r \,\mathrm{d}\gamma(\vec{\eta})
+\approx\sum_e \sum_k p_{e_k}
+\int_{\gamma_e}\pd{G(\vec{\eta}';\vec{\eta})}{\vec{n}}\mathcal{N}^{(e)}_k(\xi) r \,\mathrm{d}\gamma(\vec{\eta})\\
+=&\nonumber\,\sum_e \sum_k p_{e_k}
+\int_0^1\mathcal{N}^{(e)}_k(\xi)
+\frac{J}{\pi \sqrt{a+b}}\bigg\{
+\left[\frac{n_r}{2}+\frac{\vec{n}\cdot(\vec{x}'-\vec{x})}{\|\vec{x}'-\vec{x}\|^2}r\right]E(m)
+-\frac{n_r}{2}K(m)\bigg\}
+\,\mathrm{d}t\\
+=&\,\sum_e \sum_k p_{e_k}
+\int_0^1
+\frac{\mathcal{N}^{(e)}_k(\xi)}{\pi \sqrt{a+b}}\bigg\{
+\left[\frac{\dot{r}(z'-z)-\dot{z}(r'-r)}{(r'-r)^2+(z'-z)^2}r
+-\frac{\dot{z}}{2}\right]E(m)
++\frac{\dot{z}}{2}K(m)\bigg\}
+\,\mathrm{d}t
+\end{align}
+Technically we don't need to treat integrand involving elliptic integral of the second kind $E(m)$.
+However, convergence rate of standard Gauss-Legendre quadrature  depends magnitude of derivatives.
+\begin{equation}
+f_E^\mathrm{double}=\frac{1}{\pi \sqrt{a+b}}
+\left[\frac{\dot{r}(z'-z)-\dot{z}(r'-r)}{a-b}r
+-\frac{\dot{z}}{2}\right],\quad
+f_K^\mathrm{double}=\frac{1}{\pi \sqrt{a+b}}
+\frac{\dot{z}}{2}
+\end{equation}
+If we define integrand $I^{(o)}$ for source location $\vec{\eta}'$ outside of $\gamma_e$
+and $I^{(i)}$ for $\vec{\eta}'$ interior to $\gamma_e$,
+\begin{align}
+I^{(o)}(t) &= \left[ f_E^\mathrm{double} E(m)+f_K^\mathrm{double} K(m)\right]\mathcal{N}^{(e)}_k(\xi)\\
+I^{(i)}(t,\tau) &= \left[f_E^\mathrm{double}R_E(m,\tau)+ f_K^\mathrm{double}R_K(m,\tau)\right]\mathcal{N}^{(e)}_k(\xi)\\
+I^{(i)}_\mathrm{log}(t) &=-2 f_E^\mathrm{double}Q_E(m) -2 f_K^\mathrm{double}Q_K(m) 
+\end{align}
+When $\vec{\eta'}$ is located the symmetry axis where $r'=0$,
+we can simplify the elliptic integrals,
+\begin{align}
+\int_{\gamma}G(\vec{\eta}';\vec{\eta})
+\pd{\phi}{\vec{n}}(\vec{\eta}) r \,\mathrm{d}\gamma(\vec{\eta})
+&\approx\sum_e \sum_k q_{e_k}
+\int_0^1\mathcal{N}^{(e)}_k(\xi)r\frac{   J }{
+2 \sqrt{r+(z-z')^2}}\,\mathrm{d}t\\
+\int_{\gamma}\pd{G(\vec{\eta}';\vec{\eta})}{\vec{n}}\phi(\vec{\eta}) r \,\mathrm{d}\gamma(\vec{\eta})
+&\approx\sum_e \sum_k p_{e_k}
+\int_0^1\mathcal{N}^{(e)}_k(\xi)r \frac{  
+\dot{z}r+\dot{r}(z-z')
+}{
+2\big[r^2+(z'-z)^2\big]^{3/2}
+}\,\mathrm{d}t
+\end{align}
+Standard Gauss-Legendre quadrature is sufficient
+to evaluate the above integral since
+the integrands have well-defined limit as $\vec{\eta}\to\vec{\eta}'$
+assuming $\ddot{z}/\dot{r}$ is finite at $r=0$.
+
+
+\subsection{Matrix assembly}
+\begin{table}
+  \begin{center}
+\def~{\hphantom{0}}
+  \begin{tabular}{rl|l}
+Element order & $o$\\
+Number of elements & $n$\\
+Number of nodes & $ n \times o +1$\\
+Nodal index of source point & $ i$& $ 0\le i \le  n \times o$\\
+Elemental index of receiving point & $ j$& $ 0\le j \le  n-1$\\
+Local node index & $k$ & $0\le k \le o$\\
+Indices of elements $\ni$ $i$-th node if $i \textrm{ mod }  o =0$
+& $ \lfloor i / o\rfloor-1$, $ \lfloor i / o\rfloor$& \\
+Indices of elements $\ni$  $i$-th node  if $i \textrm{ mod }  o \neq 0$
+& $ \lfloor i / o\rfloor-1$&\\
+Nodal indices of $j$-th element  & $j \times o +  k$ & $0\le k \le o$\\
+  \end{tabular}
+  \caption{Index involved}
+  \label{tab:kd}
+  \end{center}
+\end{table}
+
+\begin{algorithm}
+  \caption{Counting mismatches between two packed strings
+    \label{alg:packed-dna-hamming}}
+  \begin{algorithmic}[1]
+%\algloop{For}
+    \Function{Distance}{$x$, $e$}
+    \For{$ 0\le i \le N_x - 1$ } \hfill\text{\# We can parallelize this loop}
+    \If{$i \textrm{ mod } o = 0$}     
+\State    $I_\mathrm{lower}$  =    $I_\mathrm{upper}$  
+          \Else
+\State              $I_\mathrm{lower} = \lfloor i/o\rfloor - 1$,\quad
+              $I_\mathrm{upper} = \lfloor i/o\rfloor$  
+          \EndIf
+    \For{$ 0\le i \le N_x - 1$ } 
+    
+    \EndFor
+    
+    
+    \EndFor
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+The collocation procedure for a single $C^1$ continuous boundary $\gamma$ leads
+to a matrix equation,
+\begin{equation}
+(\mat{B}+\mat{D})\vec{p} =\mat{H}\vec{p} = \mat{S}\vec{q}
+\end{equation}
+Consider two adjacent boundaries $\gamma_0$ and $\gamma_1$.
+The assembly process can be decomposed into
+four parts: 
+$\{\vec{\eta'}\in\gamma_0,\vec{\eta'}\in\gamma_1\}\otimes\{\vec{\eta}\in\gamma_0,\vec{\eta}\in\gamma_1\}$
+which leads to a block matrix equation,
+\begin{equation}
+\begin{bmatrix}
+\mat{H}_{00}&\mat{H}_{01}\\\mat{H}_{10}&\mat{H}_{11}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{p}_0\\\vec{p}_1
+\end{bmatrix}
+=\begin{bmatrix}
+\mat{S}_{00}&\mat{S}_{01}\\\mat{S}_{10}&\mat{S}_{11}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{q}_0\\\vec{q}_1
+\end{bmatrix}
+\end{equation}
+We have two identical rows in $\mat{H}$ and $\mat{S}$ 
+and extra equation for continuity of potential,
+\begin{equation}\left.\begin{aligned}
+\mathrm{row}_{-1}(\mat{H}_{00})\cdot\vec{p}_0
++\mathrm{row}_{-1}(\mat{H}_{01})\cdot\vec{p}_1
+&=\mathrm{row}_{-1}(\mat{S}_{00})\cdot\vec{q}_0
++\mathrm{row}_{-1}(\mat{S}_{01})\cdot\vec{q}_1\\
+\mathrm{row}_{0}(\mat{H}_{10})\cdot\vec{p}_0
++\mathrm{row}_{0}(\mat{H}_{11})\cdot\vec{p}_1
+&=\mathrm{row}_{0}(\mat{S}_{10})\cdot\vec{q}_0
++\mathrm{row}_{0}(\mat{S}_{11})\cdot\vec{q}_1\\
+(p_0)_{-1}-(p_1)_{0}&=0
+\end{aligned}\right\}\end{equation}
+We simply replace one of identical rows with the continuity condition,
+\begin{equation}\begin{aligned}
+\mathrm{row}_{-1}(\mat{H}_{00}) &= [0, \,\cdots ,0 , 1],&
+\mathrm{row}_{-1}(\mat{H}_{01}) &= [-1,0, \,\cdots ,0 ]\\
+\mathrm{row}_{-1}(\mat{S}_{00}) &= [0, \,\cdots ,0 , 0],&
+\mathrm{row}_{-1}(\mat{S}_{01}) &= [0,0, \,\cdots ,0 ]
+\end{aligned}\end{equation}
+For mixed-type boundary condition, i.e., Dirichlet and Neumann on different segments of the boundary,
+we simply rearrange the block matrices,
+\begin{equation}
+\begin{bmatrix}
+\mat{H}_{00}&-\mat{S}_{01}\\\mat{H}_{10}&-\mat{S}_{11}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{p}_0\\\vec{q}_1
+\end{bmatrix}
+=\begin{bmatrix}
+\mat{S}_{00}&-\mat{H}_{01}\\\mat{S}_{10}&-\mat{H}_{11}
+\end{bmatrix}
+\begin{bmatrix}
+\vec{q}_0\\\vec{p}_1
+\end{bmatrix}
+\end{equation}
+Note the continuity between discrete potential vectors $\vec{p}_0$ and $\vec{p}_1$
+is still implied. What cannot be achieved is to prescribe identical value of potential both before and after the transition point.
+In this case, continuity of potential can no longer provide an extra equation.
+
+\subsection{Benchmark}
+We validate our implementation of boundary integral solver for test problems posed 
+on a smooth boundary $\gamma$ and on a piecewise smooth boundary $\gamma_0\cup\gamma_1$.
+The latter contains a geometric discontinuity of a 90$^\circ$ corner
+at the transition point between $\gamma_0$ and $\gamma_1$.
+Consider the following parametrisation of the boundaries,
+\begin{align}
+\gamma_0&=\left\{
+2 \Big(1+\frac{1}{4}\cos(8\theta - \pi)\Big)
+\begin{pmatrix}
+\cos\theta\\
+\sin\theta
+\end{pmatrix}
+\Bigm|  \theta \in [0,\pi/2]\right\}\\
+\gamma_1&=
+\left\{
+\begin{pmatrix}
+t\\0
+\end{pmatrix}
+\Bigm|  \theta \in [0,3/2]\right\}
+\end{align}
+The general form of axisymmetric harmonic potential can be constructed from Legendre polynomial $P_\ell$ of order $\ell$.
+We consider the interior problem for the potential $\phi$,
+\begin{equation}\label{eq:test_parametrisation}
+\phi = (r^2+z^2)P_2\Big(\frac{z}{\sqrt{r^2+z^2}}\Big),\quad
+\pd{\phi}{\vec{n}} = \vec{n}\cdot (-r , 2 z )
+\end{equation}
+If we prescribe the potential value of $\phi$ on $\gamma_0$ and 
+its normal flux $\partial \phi /\partial \vec{n}$ on $\gamma_1$,
+our solver is expected to reproduce $\partial \phi /\partial \vec{n}$ on $\gamma_0$
+and $\phi$ on $\gamma_1$,
+\begin{equation}\label{eq:test_problem}
+\textrm{Test problem:}\quad\textrm{given}\left\{
+\begin{aligned}
+\phi &\textrm{ on }\gamma_0\\
+\partial \phi /\partial \vec{n}&\textrm{ on }\gamma_1
+\end{aligned}\right.,
+\,\,\textrm{find}\left\{
+\begin{aligned}
+\partial \phi /\partial \vec{n}&\textrm{ on }\gamma_0\\
+\phi &\textrm{ on }\gamma_1
+\end{aligned}\right.
+\end{equation}
+In addition for a plane curve given parametrically as $\gamma(t) = (r(t), z(t))$,
+the total curvature $2\kappa$ of the surface of revolution obtained by rotating curve $\gamma$
+about the $z$-axis is given by,
+\begin{equation}
+2\kappa= \frac{\dot{r}\ddot{z} - \dot{z}\ddot{r}}{(\dot{r}^2+\dot{z}^2)^{\frac{3}{2}}}
++\frac{1}{r}\frac{\dot{z}}{\sqrt{\dot{r}^2+\dot{z}^2}}
+\end{equation}
+We verify the accuracy of quintic spline interpolation against the analytic form derived from
+the parametrisation (\ref{eq:test_parametrisation}). All errors between numerical and analytical solutions
+are measured in the $l^\infty$-norm,
+\begin{align}
+\|\textrm{err}_\mathrm{d}\|_\infty &= 
+\max_{\vec{x}_i\in \gamma_1}{\lvert p^\mathrm{num}_i-\phi(\vec{x}_i)\rvert}\label{eq:errorDirichlet}\\
+\|\textrm{err}_\mathrm{n}\|_\infty &= 
+\max_{\vec{x}_i\in \gamma_0}{\lvert q^\mathrm{num}_i-\partial\phi/\partial\vec{n}(\vec{x}_i)\rvert}\label{eq:errorNeumann}\\
+\|\textrm{err}_\mathrm{c}\|_\infty &= 
+\max_{\vec{x}_i\in \gamma_0}{\lvert 2\kappa^\mathrm{spline}_i-2\kappa(\vec{x}_i)\rvert}\label{eq:errorCurvature}
+\end{align}
+In figure \ref{fig:test_result}(a) and \ref{fig:test_result}(b) 
+we plot these errors against the total number of degree of freedom (DOF) used by the solver.
+\begin{figure}
+  \centering
+  \includegraphics[height = 5.5 cm]{fig01.pdf}% Images in 100% size
+  \caption{
+Error convergence  between numerical and analytic solutions measured in $l^\infty$-norm against degrees of freedom (DOF) used for the test problem (\ref{eq:test_problem}):
+(a) Boundaries $\gamma_0$ (solid) and $\gamma_1$ (dashed) given 
+by parametrisation (\ref{eq:test_parametrisation}).
+(b) Error convergence: curvature error (\ref{eq:errorCurvature}) ($\blacktriangledown$) on $\gamma_0$;
+Neumann error (\ref{eq:errorNeumann}) on $\gamma_0$ 
+with linear ($\CIRCLE $) and quadratic ($\blacksquare$) shape functions;
+Dirichlet error (\ref{eq:errorDirichlet})  on $\gamma_1$ 
+with linear ($\ocircle $) and quadratic ($\Box$) shape functions.
+Inset: linear fit (dashed line) of the last five points of each error.
+  }
+\label{fig:test_result}
+\end{figure}
+
+\section{Self-similar Taylor cone}
+\subsection{Preparation for iteration}
+In the last section we outline the numerical procedure to solve Laplace equation subject to mixed boundary conditions.
+Initial guess is a $C^3$ continuous function $f_\mathrm{guess}$,
+\begin{equation}
+f_\mathrm{guess}(r)=\left\{\begin{aligned}
+&f_0r+f_2r^2+f_4r^4+f_6r^6,&&\textrm{if }r\le r_c\\
+&c_0 r + \frac{c_1}{\sqrt{r}} +\frac{c_3}{r^{7/2}}+\frac{c_4}{r^{5}},&&\textrm{if }r>r_c
+\end{aligned}\right.
+\end{equation}
+where $r_c$ is the connection point where continuities up to the third derivative are enforced.
+Given a reasonable $c_1$, function $f_\mathrm{guess}(r)$ agrees with analytic prediction in the far-field.
+The effect of varying $r_c$ and $c_1$ is illustrated in figure \ref{fig:initialGuess}.
+\begin{figure}
+  \centering
+  \includegraphics[height =  4.65cm]{fig02.pdf}% Images in 100% size
+  \caption{$C^3$ function $f_\mathrm{guess}(r)$: increasing $r_c$ (right) and $c_1$ (left)  }
+\label{fig:initialGuess}
+\end{figure}
+
+
+We clamp the spline function, its tangent direction and total curvature at truncation point $r_*$
+\begin{equation}
+\dot{z}=\dot{r}\dd{f}{r},\quad
+\ddot{z}
+=\frac{\ddot{r} \dot{z}+2\kappa   (\dot{r}^2+\dot{z}^2)^{3/2}
+ }{\dot{r} }
+-
+\frac{\dot{z} \left(\dot{r}^2+\dot{z}^2\right)}{\dot{r} r}
+\end{equation}
+Forward, central and backward finite difference approximation to first derivative 
+with three data points $\{(x_i,f_i)\}_{i=0,1,2}$,
+\begin{align}
+f'(x_0)&\approx-f_0 \left(\frac{1}{h_0+h_1}+\frac{1}{h_0}\right)+f_1 \left(\frac{1}{h_0}
++\frac{1}{h_1}\right)-f_2 \left(\frac{1}{h_1}-\frac{1}{h_0+h_1}\right)\\
+f'(x_1)&\approx+f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)+f_1 \left(\frac{1}{h_0}
+-\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_1}-\frac{1}{h_0+h_1}\right)\\
+f'(x_2)&\approx-f_0 \left(\frac{1}{h_0+h_1}-\frac{1}{h_0}\right)-f_1 \left(\frac{1}{h_0}
++\frac{1}{h_1}\right)+f_2 \left(\frac{1}{h_0+h_1}+\frac{1}{h_1}\right)\\
+f''(x_0)&\approx f''(x_1)\approx f''(x_2)\approx\frac{2}{h_0(h_0+h_1)} f_ 0-\frac{2 }{h_0 h_1}f_ 1
++ \frac{2}{ h_ 1(h_ 0+h_ 1)}f_ 2
+\end{align}
+where $h_i = x_{i+1} - x_i$.
+For curvature purpose, we only list the forward and
+backward finite difference approximation to the second derivative with four-point stencil,
+\begin{align}
+\nonumber f''(x_3)\approx&&-\frac{2 (h_1+2 h_2)}{h_0 (h_0+h_1) (h_0+h_1+h_2)} f_0
+&&+\frac{2  (h_0+h_1+2 h_2)}{h_0 h_1 (h_1+h_2)}f_1\\
+\phantom{\approx}&&-\frac{2  (h_0+2 (h_1+h_2))}{h_1 h_2 (h_0+h_1)}f_2
+&&+\frac{2  (h_0+2 h_1+3 h_2)}{h_2 (h_1+h_2) (h_0+h_1+h_2)}f_3
+\end{align}
+Thus we use backward finite difference method to approximate the first and second derivatives of $r$-component of the spline at the truncation point $r_*$.
+With prescribed slope and curvature, we can compute the first and second derivatives of $z$-component.
+
+Gradient of axisymmetric harmonic function,
+\begin{align}
+\pd{}{r}R^\ell P_\ell(\cos\theta)
+&=\frac{ \ell r^2-(\ell +1)z^2 }{r}R^{\ell-2}P_\ell\left(\frac{z}{R}\right)
++\frac{(\ell+1) z }{r} R^{\ell-1}P_{\ell+1}\left(\frac{z}{R}\right)\\
+\pd{}{z}R^\ell P_\ell(\cos\theta)
+&=(2 \ell+1) z R^{\ell-2} P_\ell\left(\frac{z}{R}\right)-(\ell+1) R^{\ell-1} P_{\ell+1}\left(\frac{z}{R}\right)\\
+\pd{}{r}R^{-\ell-1} P_\ell(\cos\theta)&=\frac{(\ell+1) z }{r}R^{-\ell-2} P_{\ell+1}\left(\frac{z}{R}\right)
+-\frac{\ell+1 }{r}R^{-\ell-1} P_\ell\left(\frac{z}{R}\right)\\
+\pd{}{z}R^{-\ell-1} P_\ell(\cos\theta)&=-(\ell+1) R^{-\ell-2} P_{\ell+1}\left(\frac{z}{R}\right)
+\end{align}
+Note $\partial /\partial r$ of these axisymmetric harmonic functions at $z=0$ is well-defined and always zero due to symmetry.
+
+
+\subsection{Newton-Raphson iteration}
+We look for possible root to the self-similar Bernoulli's equation,
+\begin{equation}
+\mathcal{B}(\vec{\eta})=\frac{2}{3}\vec{\eta}\cdot \nabla \phi  -\frac{1}{3}\phi
++\frac{1}{2}|\nabla \phi|^2-2\kappa-\frac{1}{2}|\nabla \psi|^2
+\end{equation}
+subject to the boundary conditions,
+\begin{equation}
+\frac{2}{3}\vec{n}\cdot \vec{\eta}+\pd{\phi}{\vec{n}}=0,\quad
+\psi =0 \quad\textrm{on}\quad\gamma_0
+\end{equation}
+We rewrite $\mathcal{B}$ in terms of position $\vec{\eta}$ and velocity potential $\phi$ on $\gamma_0$,
+\begin{align}
+\nonumber \mathcal{B}(\vec{\eta})&=\frac{2}{3}(\vec{n}\cdot\vec{\eta}) \pd{\phi}{\vec{n}}+
+\frac{2}{3}(\vec{s}\cdot\vec{\eta}) \pd{\phi}{\vec{s}}
+  -\frac{1}{3}\phi+\frac{1}{2}\left( \pd{\phi}{\vec{n}}\right)^2
+  +\frac{1}{2}\left( \pd{\phi}{\vec{s}}\right)^2-2\kappa\\
+  &=\frac{1}{2}\left( \pd{\phi}{\vec{s}}\right)^2+
+  \frac{2}{3}(\vec{s}\cdot\vec{\eta}) \pd{\phi}{\vec{s}}
+  -\frac{1}{3}\phi-\frac{2}{9}\left( \vec{n}\cdot \vec{\eta}\right)^2
+  -2\kappa-\frac{1}{2}\left( \pd{\psi}{\vec{n}}\right)^2=0
+\end{align}
+This problem is nonlinear in velocity field which is normal for inertia-dominate flow
+but more importantly nonlinear in the geometry.
+\begin{algorithm}
+  \caption{Nonlinear iteration \label{alg:taylorConeNewton}}
+  \begin{algorithmic}[1]
+%\algloop{For}
+    \Function{Newton iteration}{$c_1$, $a_0$, $r_*$} \Comment{truncation distance $r_*$}
+    \State compute $c_0,\dots , c_4$ \Comment{$c_2=0$}
+    \State initialize guess shape $\gamma_0$\Comment{fix 1st and 2nd derivatives at the end}
+    \State initialize fluid and vacuum patches, $\gamma_1$ and $\gamma_2$
+    \While{$\textrm{error}(\vec{\mathcal{B}})<\textrm{tolerance}$} \Comment{$l^\infty$ error norm}
+    \ForAll{knots $\vec{\eta}_i$ of spline $\gamma_0$} \Comment{exclude ending knot}
+    \State perturb $\vec{\eta}_i \to \vec{\eta}_i+\epsilon \vec{n}_i$
+    \State compute ending derivatives $\dot{r},\ddot{r},\dot{z},\ddot{z}$
+    \State initialize perturbed spline $\underline{\gamma}_0$    
+     \State initialize perturbed Neumann condition on $\underline{\gamma}_0$    
+    \State compute solution $\underline{\phi}$ on $\underline{\gamma}_0$    
+     \State compute perturbed residue vector $\underline{\vec{\mathcal{B}}}$ \Comment{for knots only}
+     \State $\mathrm{col}_i(\mat{J}) = (\underline{\vec{\mathcal{B}}}-\vec{\mathcal{B}})/\epsilon$
+    \EndFor
+    \State solve $\mat{J}\, \delta\vec{n}=-\vec{\mathcal{B}}$ 
+				\Comment{$\mathrm{dim}(\mat{J}) = \#_\mathrm{node}\times( \#_\mathrm{knot} - 1) $}
+    \State update $\vec{\eta}_i \to \vec{\eta}_i+\alpha \delta\vec{n}_i$ with damping rate $\alpha$
+    \State compute new residue vector $\vec{\mathcal{B}}$
+    \EndWhile        
+    \EndFunction
+  \end{algorithmic}
+\end{algorithm}
+
+
+\section{Results and discussion}
+\subsection{Burton \& Taborek}
+We first recover the self-similar cone formation at the end of an inviscid drop reported by
+\cite{Burton11}.
+\begin{figure}  
+% \includegraphics[height = 5.5 cm]{fig03BT.pdf}% Images in 100% size
+  \includegraphics[height = 4.7 cm]{fig03_a_light.pdf}\,
+  \includegraphics[height = 4.7 cm]{fig03BT_light.pdf}\\
+  \includegraphics[height = 4.7 cm]{fig03_b_light.pdf}\,
+  \includegraphics[height = 4.7 cm]{fig03BT_light.pdf}
+  \caption{\cite{Burton11}
+??\label{fig:??}
+}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\bibliographystyle{jfm}
+% Note the spaces between the initials
+\bibliography{taylorConeNumeric}
+
+\end{document}

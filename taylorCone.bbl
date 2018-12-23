@@ -1,0 +1,28 @@
+\begin{thebibliography}{4}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\def\au#1{#1} \def\ed#1{#1} \def\yr#1{#1}\def\at#1{#1}\def\jt#1{\textit{#1}}
+  \def\bt#1{#1}\def\bvol#1{\textbf{#1}} \def\vol#1{#1} \def\pg#1{#1}
+  \def\publ#1{#1}\def\arxiv#1{#1}\def\org#1{#1}\def\st#1{\textit{#1}}
+
+\bibitem[Burton \& Taborek(2011)]{Burton11}
+{\sc \au{Burton, J.~C.} \& \au{Taborek, P.}} \yr{2011}  \at{Simulations of
+  coulombic fission of charged inviscid drops}.  \jt{Phys. Rev. Lett.}
+  \bvol{106},  \pg{144501}.
+
+\bibitem[Kress(2013)]{Kress13}
+{\sc \au{Kress, R.}} \yr{2013} {\em Linear Integral Equations\/}.
+  \publ{Springer New York}.
+
+\bibitem[Lennon {\em et~al.\/}(1979)Lennon, Liu \& Liggett]{Lennon79}
+{\sc \au{Lennon, G.~P.}, \au{Liu, P. L.-F.} \& \au{Liggett, J.~A.}} \yr{1979}
+  \at{Boundary integral equation solution to axisymmetric potential flows: 1.
+  basic formulation}.  \jt{Water Resources Research}  \bvol{15}~(5),
+  \pg{1102--1106}.
+
+\bibitem[Mund {\em et~al.\/}(1975)Mund, Hallet \& Hennart]{Mund75}
+{\sc \au{Mund, E.~H.}, \au{Hallet, P.} \& \au{Hennart, J.~P.}} \yr{1975}
+  \at{An algorithm for the interpolation of functions using quintic splines}.
+  \jt{Journal of Computational and Applied Mathematics}  \bvol{1}~(4),  \pg{279
+  -- 288}.
+
+\end{thebibliography}
